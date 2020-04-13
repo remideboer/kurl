@@ -57,7 +57,7 @@ fun main(args: Array<String>) {
     println("sending request:\n${request.method()} ${request.uri()} ${request.version().get()}")
 
     val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-    println("server responded: ${response.version()} ${response.statusCode()}git ")
+    println("server responded: ${response.version()} ${response.statusCode()}")
 
     if (cmd.hasOption("H")) {
         response.headers().map().forEach { (t, u) ->
