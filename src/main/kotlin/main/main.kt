@@ -30,10 +30,6 @@ fun main(args: Array<String>) {
     val requestBuilder = HttpRequest.newBuilder().version(HttpClient.Version.HTTP_1_1)
     requestBuilder.header("User-Agent", "kUrl")
 
-    if (cmd.hasOption("H")) {
-        println("Ik hebbe -h")
-    }
-
     if (cmd.hasOption("u")) {
         val url = cmd.getOptionValue("u")
         requestBuilder.uri(URI.create(url))
@@ -61,5 +57,15 @@ fun main(args: Array<String>) {
     println("sending request:\n${request.method()} ${request.uri()} ${request.version().get()}")
 
     val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-    println(response)
+    println("server responded: ${response.version()} ${response.statusCode()}git ")
+
+    if (cmd.hasOption("H")) {
+        response.headers().map().forEach { (t, u) ->
+            print("$t: ")
+            u.forEach { print(it) }
+            println()
+        }
+    }
+
+    println(response.body())
 }
